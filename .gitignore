@@ -1,0 +1,53 @@
+# IDE-specific project files
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Build output and artifacts
+# Ignore generated build directories for main and test sources
+*.jar
+*.war
+*.zip
+*.tar
+*.tar.gz
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+**/out/
+**/build/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+logs/
+
+# Environment Variables / Configuration
+.env

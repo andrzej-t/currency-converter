@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Konwerter Walut</title>
+    <link href="css/main.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        KONWERTER WALUT
+    </div>
+
+    <div class="converter-section">
+        <form class="converter-form" id="converterForm" novalidate>
+            <div class="form-group">
+                <label for="amount">Wprowadź kwotę:</label>
+                <input id="amount" min="0" placeholder="0.00" required step="0.01" type="number">
+            </div>
+
+            <div class="form-group">
+                <label for="currencyFromValue">Konwertuj z:</label>
+                <div class="custom-select" id="customCurrencyFrom">
+                    <input id="currencyFromValue" name="currencyFrom" type="hidden" value="">
+                    <div class="select-selected">Wybierz walutę</div>
+                    <div class="select-items select-hide">
+                        <div data-value="">Wybierz walutę</div>
+                        <div data-value="PLN">PLN</div>
+                        <div data-value="USD">USD</div>
+                        <div data-value="AUD">AUD</div>
+                        <div data-value="CAD">CAD</div>
+                        <div data-value="EUR">EUR</div>
+                        <div data-value="HUF">HUF</div>
+                        <div data-value="CHF">CHF</div>
+                        <div data-value="GBP">GBP</div>
+                        <div data-value="JPY">JPY</div>
+                        <div data-value="CZK">CZK</div>
+                        <div data-value="DKK">DKK</div>
+                        <div data-value="NOK">NOK</div>
+                        <div data-value="SEK">SEK</div>
+                        <div data-value="XDR">XDR</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="currencyToValue">Konwertuj na:</label>
+                <div class="custom-select" id="customCurrencyTo">
+                    <input id="currencyToValue" name="currencyTo" type="hidden" value="">
+                    <div class="select-selected">Wybierz walutę</div>
+                    <div class="select-items select-hide">
+                        <div data-value="">Wybierz walutę</div>
+                        <div data-value="PLN">PLN</div>
+                        <div data-value="USD">USD</div>
+                        <div data-value="AUD">AUD</div>
+                        <div data-value="CAD">CAD</div>
+                        <div data-value="EUR">EUR</div>
+                        <div data-value="HUF">HUF</div>
+                        <div data-value="CHF">CHF</div>
+                        <div data-value="GBP">GBP</div>
+                        <div data-value="JPY">JPY</div>
+                        <div data-value="CZK">CZK</div>
+                        <div data-value="DKK">DKK</div>
+                        <div data-value="NOK">NOK</div>
+                        <div data-value="SEK">SEK</div>
+                        <div data-value="XDR">XDR</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="convert-btn" disabled id="convertBtn" type="submit">
+                Przelicz
+            </button>
+
+            <div class="form-group">
+                <span>Wynik:</span>
+                <div class="result-display" id="result">-</div>
+            </div>
+        </form>
+    </div>
+
+    <div class="rates-section">
+        <h2 class="rates-title">Aktualne kursy walut</h2>
+        <div id="ratesContainer">
+            <div class="loading">Ładowanie danych...</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Wszystkie podane kursy i wyliczenia opierają się na aktualnych danych z tabeli C udostępnionych przez NBP
+    </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
