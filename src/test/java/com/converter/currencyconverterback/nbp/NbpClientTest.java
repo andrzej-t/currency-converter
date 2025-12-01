@@ -46,29 +46,24 @@ class NbpClientTest {
 
     @BeforeEach
     void setUp() {
-        // Initialize the mocks for each test run
         mockRestClient = mock(RestClient.class);
         mockRequestHeadersUriSpec = mock(RestClient.RequestHeadersUriSpec.class);
         mockRequestHeadersSpec = mock(RestClient.RequestHeadersSpec.class);
         mockResponseSpec = mock(RestClient.ResponseSpec.class);
 
-        // Configure the mock RestClient.Builder to return our specific mockRestClient
         when(restClientBuilder.baseUrl(any(String.class))).thenReturn(restClientBuilder);
         when(restClientBuilder.build()).thenReturn(mockRestClient);
 
-        // Configure the mockRestClient to return the mock chain for a GET request
         when(mockRestClient.get()).thenReturn(mockRequestHeadersUriSpec);
         when(mockRequestHeadersUriSpec.uri(any(String.class))).thenReturn(mockRequestHeadersSpec);
         when(mockRequestHeadersSpec.retrieve()).thenReturn(mockResponseSpec);
 
-        // Clear the cache before each test to ensure test isolation for caching tests
         Cache cache = cacheManager.getCache("currencies");
         if (cache != null) {
             cache.clear();
         }
     }
 
-    // Helper method to create Rates objects
     private Rates createRate(String code, String currencyName, String bid, String ask) {
         return new Rates(currencyName, code, new BigDecimal(bid), new BigDecimal(ask));
     }
@@ -103,7 +98,6 @@ class NbpClientTest {
         assertTrue(result.contains(rate1));
         assertTrue(result.contains(rate2));
 
-        // Verify that the rest client was called
         verify(mockRestClient).get();
         verify(mockRequestHeadersUriSpec).uri("/tables/c?format=json");
         verify(mockRequestHeadersSpec).retrieve();
@@ -133,7 +127,7 @@ class NbpClientTest {
 
         // Assert
         assertTrue(result.isEmpty());
-        verify(mockRestClient).get(); // Still verify the initial call attempt
+        verify(mockRestClient).get();
     }
 
     @Test
@@ -149,7 +143,6 @@ class NbpClientTest {
 
         when(mockResponseSpec.body(Currency[].class)).thenReturn(mockResponse);
 
-        // Act - First call; should populate a cache
         List<Rates> firstResult = nbpClient.getAllCurrencies();
 
         // Assert
@@ -157,13 +150,11 @@ class NbpClientTest {
         assertTrue(firstResult.contains(rate1));
         assertTrue(firstResult.contains(rate2));
 
-        // Verify API call happened once
         verify(mockRestClient, times(1)).get();
         verify(mockRequestHeadersUriSpec, times(1)).uri("/tables/c?format=json");
         verify(mockRequestHeadersSpec, times(1)).retrieve();
         verify(mockResponseSpec, times(1)).body(Currency[].class);
 
-        // Act - Second call; should use cache
         List<Rates> secondResult = nbpClient.getAllCurrencies();
 
         // Assert
@@ -171,7 +162,6 @@ class NbpClientTest {
         assertTrue(secondResult.contains(rate1));
         assertTrue(secondResult.contains(rate2));
 
-        // Verify API call did NOT happen again (still only one call)
         verify(mockRestClient, times(1)).get();
         verify(mockRequestHeadersUriSpec, times(1)).uri("/tables/c?format=json");
         verify(mockRequestHeadersSpec, times(1)).retrieve();

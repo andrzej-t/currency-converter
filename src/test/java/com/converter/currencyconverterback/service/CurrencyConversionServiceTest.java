@@ -48,7 +48,6 @@ class CurrencyConversionServiceTest {
         BigDecimal result = service.convertCurrency(amount, "PLN", "USD");
 
         // then
-        // Normalize a result for robust BigDecimal comparison in currency tests
         assertEquals(new BigDecimal("25.00"), result.setScale(2, RoundingMode.HALF_UP)); // 100 / 4.00 = 25.00
         verify(nbpClient, times(1)).getAllCurrencies();
     }
@@ -63,7 +62,6 @@ class CurrencyConversionServiceTest {
         BigDecimal result = service.convertCurrency(amount, "USD", "PLN");
 
         // then
-        // Normalize a result for robust BigDecimal comparison in currency tests
         assertEquals(new BigDecimal("390.00"), result.setScale(2, RoundingMode.HALF_UP)); // 100 * 3.90 = 390.00
         verify(nbpClient, times(1)).getAllCurrencies();
     }
@@ -78,8 +76,6 @@ class CurrencyConversionServiceTest {
         BigDecimal result = service.convertCurrency(amount, "USD", "EUR");
 
         // then
-        // (100 * 3.90) / 4.40 = 88.6363..., rounded to 88.64
-        // Normalize result for robust BigDecimal comparison in currency tests
         assertEquals(new BigDecimal("88.64"), result.setScale(2, RoundingMode.HALF_UP));
         verify(nbpClient, times(2)).getAllCurrencies();
     }
@@ -93,7 +89,6 @@ class CurrencyConversionServiceTest {
         BigDecimal result = service.convertCurrency(amount, "PLN", "PLN");
 
         // then
-        // Normalize a result for robust BigDecimal comparison in currency tests
         assertEquals(new BigDecimal("100.00"), result.setScale(2, RoundingMode.HALF_UP));
         verify(nbpClient, never()).getAllCurrencies();
     }
@@ -175,8 +170,6 @@ class CurrencyConversionServiceTest {
         BigDecimal result = service.convertCurrency(amount, "PLN", "USD");
 
         // then
-        // 99.99 / 4.00 = 24.9975, rounded to 25.00
-        // Normalize result for robust BigDecimal comparison in currency tests
         assertEquals(new BigDecimal("25.00"), result.setScale(2, RoundingMode.HALF_UP));
         verify(nbpClient, times(1)).getAllCurrencies();
     }
